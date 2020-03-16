@@ -1,0 +1,58 @@
+﻿@using ReservationsManager.Models.Reservation
+@model ReservationsManager.Models.Reservation.ReservationIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Reservations</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Has Breakfast</th>
+            <th>Is AllInclusive</th>
+            <th>Final Price</th>
+            <th>User</th>
+            <th>Clients</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ReservationViewModel item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckInDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckOutDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasBreakfast)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAllInclusive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientReservations[0].Client.Name)
+                </td>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
